@@ -337,10 +337,7 @@ export default class Field{
 
     Draw()
     {
-        const canvasArea = this.#gameCanvas.width * this.#gameCanvas.height;
-        const squareArea = this.#width * (this.#height - 4);
-        let squareSize = Math.floor(Math.sqrt(canvasArea/squareArea));
-        squareSize -= squareSize % 5;
+        const squareSize = (this.#gameCanvas.width / this.#width) - (this.#gameCanvas.width / this.#width) % 5;
         const widthMargin = (this.#gameCanvas.width - this.#width * squareSize) / 2;
         const heightMargin = (this.#gameCanvas.height - (this.#height - 4) * squareSize) / 2;
 

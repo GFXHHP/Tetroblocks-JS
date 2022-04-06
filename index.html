@@ -3,6 +3,22 @@
     <head>
     <title>Tetroblocks</title>
     <script src="./jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        window.onload = resizeCanvas;
+        function resizeCanvas()
+        {
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            if(width < 200 || height < 400)
+                alert("Your window might be too small to enjoy the game");
+            else
+            {
+                height-= height * 0.15;
+                $("#game_canvas")[0].height = height - (height % 100);
+                $("#game_canvas")[0].width = (height - (height % 100)) / 1.6;
+            }
+        }
+    </script>
     <script type="module">
         import Game from "./game.js";
         let game = new Game($("#game_canvas")[0],$("#next_piece")[0]);
