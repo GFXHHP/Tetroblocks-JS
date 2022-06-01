@@ -5,6 +5,7 @@ export default class Game
 {
     #field = null;
     #gameCanvas = null;
+    #display = null;
     #nextPieceCanvas = null;
 
     #Storage = window.localStorage;
@@ -12,11 +13,12 @@ export default class Game
     #canPlay = false;
     #canLower = true;
 
-    constructor(game_canvas, next_piece_canvas)
+    constructor(game_canvas, display)
     {
-        this.#field = new Field(this, game_canvas, next_piece_canvas);
         this.#gameCanvas = game_canvas;
-        this.#nextPieceCanvas = next_piece_canvas;
+        this.#display = display;
+        this.#nextPieceCanvas = this.#display.querySelector("#next_piece");
+        this.#field = new Field(this, game_canvas, this.#nextPieceCanvas);
 
         window.addEventListener("keydown", this.KeyDown.bind(this));
     }
@@ -26,6 +28,8 @@ export default class Game
         this.#canPlay = true;
         console.log("Starting new game.");
         
+        $("#gameover_display")[0].innerHTML = "";
+
         this.CanLowerCountdown();
         this.#field.AddTetromino();
 
@@ -36,7 +40,16 @@ export default class Game
     {
         if(this.#canPlay)
         {
-            alert("Game over!\nYou can press space or reload the page to play again.");
+            //alert("Game over!\nYou can press space or reload the page to play again.");
+            $.ajax({
+                url: "gameover.php",
+                type: "POST",
+                data: { score: this.#field.GetLines()},
+                dataType: "html",
+                success: function(html) {
+                    $("#gameover_display")[0].innerHTML = html;
+                }
+            });//end ajax call
             console.log("Game over!");
             this.#canPlay = false;
         }

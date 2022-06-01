@@ -1,0 +1,25 @@
+:root{
+    --clr: white;
+}
+
+body{
+    color: var(--clr);
+    background-color: #333333;
+}
+a.header_sort{
+    color: var(--clr);
+    text-decoration: none;
+}
+a.chosen_header_sort{
+    color: var(--clr);
+    text-decoration: underline;
+}
+a{
+    color: #0025FF;
+}
+#gameplay_area{
+    float: left;
+}
+#display{
+    float: none;
+}
